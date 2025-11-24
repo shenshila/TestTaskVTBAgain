@@ -1,14 +1,32 @@
+import {
+    Writer,
+    Connection,
+    SchemaRegistry,
+    SCHEMA_TYPE_STRING,
+} from "k6/x/kafka";
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 import { Trend, Rate, Counter, Gauge } from 'k6/metrics';
 import { KafkaClient, Producer } from "k6/x/kafka";
 
-// Кастомные метрики для мониторинга
-const brokers = ["localhost:9092"];
-const topic = "test_topic";
+const writer = new Writer({
+    brokers: ["localhost:29092"],
+    topic: "input-topic",
+	balancer: "balancer_roundrobin",
+	batchSize: 1,
+});
 
-const client = new KafkaClient({ brokers });
-const producer = new Producer(client);
+const connection = new Connection({
+    address: "localhost:29092",
+});
+
+const schemaRegistry = new SchemaRegistry();
+
+let messagesSendCount = 0;
+
+function getMessagesSendCountThanIncrement() {
+  return messagesSendCount++;
+}
 
 const asyncDuration = new Trend('async_request_duration');
 const syncGoodDuration = new Trend('sync_good_duration');
@@ -39,7 +57,7 @@ export const options = {
   thresholds: {
     // Общие thresholds
     http_req_duration: ['p(95)<1000'], // 95% запросов должны быть быстрее 1s
-    http_req_failed: ['rate<0.05'],    // Меньше 5% ошибок
+    http_req_failed: ['rate<0.05'],
     checks: ['rate>0.95'],
     
     // Thresholds по типам запросов

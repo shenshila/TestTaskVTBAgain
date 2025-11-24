@@ -1,6 +1,7 @@
 package org.melekhov.testtaskvtbagain.controller;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,11 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@Slf4j
 public class MessageController {
 
     @PostMapping("/sync")
     public ResponseEntity<String> sendMessage(@RequestBody String message){
         String lower = message.toLowerCase();
+        log.info("Message received: {}", lower);
         if (lower.contains("good")){
             return ResponseEntity.ok("ok");
         } else if (lower.contains("bad")){
