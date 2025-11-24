@@ -25,12 +25,4 @@ public class MessageController {
         }
     }
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
-
-    @PostMapping("/kafka")
-    public ResponseEntity<String> sendKafkaMessage(@RequestBody String message){
-        kafkaTemplate.send("input-topic", message);
-        return ResponseEntity.ok("ok");
-    }
-
 }

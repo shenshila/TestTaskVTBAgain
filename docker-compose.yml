@@ -75,9 +75,29 @@ services:
     volumes:
       - ./influxdb-data:/var/lib/influxdb
     environment:
-      - INFLUXDB_DB=jmeter
+      - INFLUXDB_DB=k6
       - INFLUXDB_USER=admin
       - INFLUXDB_PASSWORD=admin
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8086/ping" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+#  k6:
+#    build: ./k6
+#    container_name: k6-runner
+#    volumes:
+#      - ./k6/scripts:/scripts
+#      - ./k6/results:/results
+#    depends_on:
+#      - influxdb
+#      - kafka
+#    environment:
+#      K6_OUT: influxdb=http://influxdb:8086/k6
+#    profiles: [ "test" ]
+#    stdin_open: true
+#    tty: true
 
 volumes:
   prometheus-data:

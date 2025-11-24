@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Slf4j
 public class KafkaMessageListener {
-
     private final KafkaTemplate<String, String> kafkaTemplate;
 
     @KafkaListener(topics = "input-topic", groupId = "stub-consumer-group")
@@ -20,5 +19,4 @@ public class KafkaMessageListener {
         kafkaTemplate.send("output-topic", msg);
         ack.acknowledge();
     }
-
 }
