@@ -11,7 +11,7 @@ datasources:
     type: influxdb
     access: proxy
     url: http://influxdb:8086
-    database: jmeter
+    database: k6
     user: admin
     password: admin
     isDefault: false
