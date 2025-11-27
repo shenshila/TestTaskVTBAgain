@@ -26,7 +26,7 @@ const schemaRegistry = new SchemaRegistry();
 export const kafkaOptions = {
     executor: 'constant-arrival-rate',
     rate: 2,
-    timeUnit: '1s',
+    timeUnit: '1m',
     duration: '8m',
     preAllocatedVUs: 2,
     maxVUs: 10,

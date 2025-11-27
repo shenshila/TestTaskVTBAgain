@@ -11,17 +11,16 @@ export const restBadOptions = {
   startVUs: 0,
   stages: [
     { duration: "1m", target: 1 },
-    { duration: "5m", target: 1 },
+    { duration: "5m", target: 1 }, // -> p = 1; users = 1;
     { duration: "0s", target: 3 },
-    { duration: "1m", target: 3 },
+    { duration: "1m", target: 3 }, // -> p = 1; users = 3;
     { duration: "0s", target: 1 },
     { duration: "1m", target: 1 },
   ],
 };
 
 export function restBadScenario() {
-  let pacing = 1;
-
+  let pacing = 1000
   const start = Date.now();
 
   const response = http.post(
@@ -41,6 +40,13 @@ export function restBadScenario() {
   restBadRequests.add(1);
   restBadSuccessRate.add(ok);
 
-  const elapsed = (Date.now() - start) / 1000;
-  sleep(Math.max(pacing - elapsed, 0));
+  // const elapsed = (Date.now() - start);
+  // if (elapsed < pacing) {
+  //   sleep((pacing - elapsed) * 1000);
+  // }
+
+  // sleep(pacing - ((Date.now() - start)));
+
+  const elapsed = (Date.now() - start);
+  sleep(Math.max(pacing - elapsed, 0) / 1000);
 }

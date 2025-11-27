@@ -10,14 +10,14 @@ export const restGoodOptions = {
   executor: "ramping-vus",
   startVUs: 0,
   stages: [
-    { duration: "1m", target: 3 },
-    { duration: "5m", target: 3 },
-    { duration: "2m", target: 3 },
+    { duration: "1m", target: 1 },
+    { duration: "5m", target: 1 },
+    { duration: "2m", target: 1 },
   ],
 };
 
 export function restGoodScenario() {
-  const pacing = 1;
+  const pacing = 333.333;
   const start = Date.now();
 
   const response = http.post("http://localhost:8080/api/sync", "good", {
@@ -33,6 +33,8 @@ export function restGoodScenario() {
       restGoodRequests.add(1);
       restGoodSuccessRate.add(success);
 
-  const elapsed = (Date.now() - start) / 1000;
-  sleep(Math.max(pacing - elapsed, 0));
+  const elapsed = (Date.now() - start);
+  
+  sleep(Math.max(pacing - elapsed, 0) / 1000);
 }
+

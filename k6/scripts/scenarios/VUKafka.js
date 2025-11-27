@@ -23,9 +23,9 @@ export const kafkaOptions = {
   executor: "ramping-vus",
   startVUs: 0,
   stages: [
-    { duration: "1m", target: 2 },
-    { duration: "5m", target: 2 },
-    { duration: "2m", target: 2 },
+    { duration: "1m", target: 1 },
+    { duration: "5m", target: 1 },
+    { duration: "2m", target: 1 },
   ],
 };
 
@@ -36,7 +36,7 @@ function getMessagesSendCountThanIncrement() {
 }
 
 export function kafkaScenario() {
-  const pacing = 1; 
+  const pacing = 500; 
   const start = Date.now();
 
   try {
@@ -74,11 +74,17 @@ export function kafkaScenario() {
         console.error('Kafka error:', error);
     }
 
-  const elapsed = (Date.now() - start) / 1000;
-  sleep(Math.max(pacing - elapsed, 0));
+  const elapsed = (Date.now() - start);
+  sleep(Math.max(pacing - elapsed, 0) / 1000);
 
-  export function teardown() {
-    connection.close();
-    writer.close();
+  // sleep(pacing - ((Date.now() - start)));
+
+  // if (elapsed > pacing) {
+  //   sleep((pacing - elapsed) * 1000);
+  // }
   }
+
+export function teardown() {
+    writer.close();
+    connection.close();
 }
