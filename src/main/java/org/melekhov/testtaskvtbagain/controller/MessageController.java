@@ -3,7 +3,6 @@ package org.melekhov.testtaskvtbagain.controller;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,5 +26,4 @@ public class MessageController {
             return ResponseEntity.status(418).body("ignored");
         }
     }
-
 }

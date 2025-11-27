@@ -20,7 +20,7 @@ export const options = {
             executor: "ramping-vus",
             startVUs: 0,
             stages: [
-                { duration: "1m", target: 1 },   // ~2 rps (0.5s sleep)
+                { duration: "1m", target: 1 }, 
                 { duration: "5m", target: 1 },   
                 { duration: "1m", target: 1 },
                 { duration: "1m", target: 1 },
@@ -32,7 +32,7 @@ export const options = {
             executor: "ramping-vus",
             startVUs: 0,
             stages: [
-                { duration: "1m", target: 1 },   // ~3 rps (0.333s sleep)
+                { duration: "1m", target: 1 },
                 { duration: "5m", target: 1 },
                 { duration: "1m", target: 1 },
                 { duration: "1m", target: 1 },
@@ -44,10 +44,10 @@ export const options = {
             executor: "ramping-vus",
             startVUs: 0,
             stages: [
-                { duration: "1m", target: 1 },   // ~1 rps (1s sleep)
+                { duration: "1m", target: 1 },
                 { duration: "5m", target: 1 },
-                { duration: "1m", target: 3 },   // скачок: 3 VU → 3 rps
-                { duration: "1m", target: 1 },   // откат
+                { duration: "1m", target: 3 },
+                { duration: "1m", target: 1 },
             ],
             exec: "restBadScenario"
         },
@@ -70,15 +70,15 @@ export function kafkaScenario() {
             }
         ]
     });
-    sleep(0.5); // 2 rps
+    sleep(0.5);
 }
 
 export function restGoodScenario() {
     http.post("http://localhost:8080/api/sync", "good");
-    sleep(0.333); // 3 rps
+    sleep(0.333);
 }
 
 export function restBadScenario() {
     http.post("http://localhost:8080/api/sync", "bad");
-    sleep(1); // 1 rps (а в фазе скачка VU увеличиваются до 3)
+    sleep(1);
 }

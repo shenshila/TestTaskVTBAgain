@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 2,
-  "id": 0,
+  "id": 3,
   "links": [],
   "panels": [
     {
@@ -1360,84 +1360,6 @@
                   "log": 2,
                   "type": "log"
                 }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "http_req_duration.Response_Time"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "ms"
-              },
-              {
-                "id": "min",
-                "value": 1
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "http_req_duration.Response_Time"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "http_req_duration.Response_Time"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "ms"
-              },
-              {
-                "id": "min",
-                "value": 1
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "http_req_duration.Response_Time"
-            },
-            "properties": [
-              {
-                "id": "color",
-                "value": {
-                  "fixedColor": "dark-purple",
-                  "mode": "fixed"
-                }
-              }
-            ]
-          },
-          {
-            "matcher": {
-              "id": "byName",
-              "options": "http_req_duration.Response_Time"
-            },
-            "properties": [
-              {
-                "id": "unit",
-                "value": "ms"
-              },
-              {
-                "id": "min",
-                "value": 1
               },
               {
                 "id": "custom.axisPlacement",
@@ -1453,6 +1375,84 @@
                   "log": 2,
                   "type": "log"
                 }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_req_duration.Response_Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "min",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_req_duration.Response_Time"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_req_duration.Response_Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "min",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_req_duration.Response_Time"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "http_req_duration.Response_Time"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "ms"
+              },
+              {
+                "id": "min",
+                "value": 1
               }
             ]
           }
@@ -1486,7 +1486,7 @@
       "pluginVersion": "12.3.0",
       "targets": [
         {
-          "alias": "async",
+          "alias": "rest_good",
           "datasource": {
             "type": "influxdb",
             "uid": "P951FEA4DE68E13C5"
@@ -1508,7 +1508,7 @@
           "measurement": "data_sent",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT sum(\"value\") FROM \"total_requests_sent\" WHERE (\"type\"='async') AND $timeFilter GROUP BY time($__interval)\n",
+          "query": "SELECT sum(\"value\") FROM \"rest_good_requests\" WHERE $timeFilter GROUP BY time($__interval)\n",
           "rawQuery": true,
           "refId": "A",
           "resultFormat": "time_series",
@@ -1529,7 +1529,7 @@
           "tags": []
         },
         {
-          "alias": "sync good",
+          "alias": "async",
           "datasource": {
             "type": "influxdb",
             "uid": "P951FEA4DE68E13C5"
@@ -1552,7 +1552,7 @@
           "measurement": "data_sent",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT sum(\"value\") FROM \"total_requests_sent\" WHERE (\"type\"='sync_good') AND $timeFilter GROUP BY time($__interval)\n",
+          "query": "SELECT sum(\"value\") FROM \"kafka_requests\" WHERE $timeFilter GROUP BY time($__interval)\n",
           "rawQuery": true,
           "refId": "B",
           "resultFormat": "time_series",
@@ -1573,7 +1573,7 @@
           "tags": []
         },
         {
-          "alias": "sync bad",
+          "alias": "sync_bad",
           "datasource": {
             "type": "influxdb",
             "uid": "P951FEA4DE68E13C5"
@@ -1596,7 +1596,7 @@
           "measurement": "data_sent",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT sum(\"value\") FROM \"total_requests_sent\" WHERE (\"type\"='sync_bad') AND $timeFilter GROUP BY time($__interval)\n",
+          "query": "SELECT sum(\"value\") FROM \"rest_bad_requests\" WHERE $timeFilter GROUP BY time($__interval)\n",
           "rawQuery": true,
           "refId": "C",
           "resultFormat": "time_series",
@@ -3017,5 +3017,5 @@
   "timezone": "browser",
   "title": "K6 Dashboard",
   "uid": "ReuNR5Aik",
-  "version": 3
+  "version": 1
 }
